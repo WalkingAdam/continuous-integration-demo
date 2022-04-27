@@ -1,4 +1,4 @@
-# contains bunch of buggy examples taken from: 
+# contains bunch of buggy examples taken from:
 # https://hackernoon.com/10-common-security-gotchas-in-python-and-how-to-avoid-them-e19fbe265e03
 import pickle
 import subprocess
@@ -16,7 +16,7 @@ def transcode_file(request, filename):
 def foo(request, user):
     if not user.is_admin:
         raise PermissionError()
-    # assert user.is_admin, 'user does not have access'
+    # assert user.is_admin, 'user does not have access
     # secure code...
 
 
@@ -26,8 +26,9 @@ class RunBinSh:
         return (subprocess.Popen, (('/bin/sh',),))
 
 def import_urlib_version(version):
-    if re.match("^[\d.]+$", version):
-        exec("import urllib%s as urllib" % version)
+    if not re.match("^[\d.]+$", version):
+        raise PermissionError()
+    exec("import urllib%s as urllib" % version)
 
 @app.route('/')
 def index():
