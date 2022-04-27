@@ -6,6 +6,7 @@ import base64
 import re
 import flask
 
+
 # Input injection
 def transcode_file(request, filename):
     command = 'ffmpeg -i "{source}" output_file.mpg'.format(source=filename)
@@ -13,7 +14,7 @@ def transcode_file(request, filename):
 
 
 # Assert statements
-def foo(request, user):
+def permission_check(request, user):
     if not user.is_admin:
         raise PermissionError()
     # assert user.is_admin, 'user does not have access
@@ -25,12 +26,14 @@ class RunBinSh:
     def __reduce__(self):
         return (subprocess.Popen, (('/bin/sh',),))
 
+
 def import_urlib_version(version):
     if not re.match("^[\d.]+$", version):
         raise PermissionError()
     exec("import urllib%s as urllib" % version)
 
-@app.route('/')
+
+@flask.app.route('/')
 def index():
     module = flask.request.args.get("module")
     import_urlib_version(module)
