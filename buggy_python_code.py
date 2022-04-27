@@ -5,6 +5,7 @@ import subprocess
 import base64
 import subprocess
 import flask
+import docstring
 
 # Input injection
 def transcode_file(request, filename):
@@ -19,7 +20,7 @@ def foo(request, user):
 
 
 # Pickles
-class RunBinSh(object):
+class RunBinSh:
     def __reduce__(self):
         return (subprocess.Popen, (('/bin/sh',),))
 
